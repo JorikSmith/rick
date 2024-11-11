@@ -20,11 +20,43 @@
     </style>
 </head>
 <body>
-    <video id="video" autoplay loop muted>
+    <video id="video" loop muted>
         <source src="rick" type="video/mp4">
+        Your browser does not support the video tag.
     </video>
-    <audio id="audio" autoplay loop>
+    <audio id="audio" loop>
         <source src="roll" type="audio/mp3">
+        Your browser does not support the audio tag.
     </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('video');
+            var audio = document.getElementById('audio');
+
+            function playMedia() {
+                video.play().catch(function(error) {
+                    console.error('Error attempting to play video:', error);
+                });
+                audio.play().catch(function(error) {
+                    console.error('Error attempting to play audio:', error);
+                });
+            }
+
+            function removeEventListeners() {
+                document.removeEventListener('click', startMedia);
+                document.removeEventListener('keydown', startMedia);
+                document.removeEventListener('touchstart', startMedia);
+            }
+            function startMedia() {
+                playMedia();
+                removeEventListeners();
+            }
+
+            document.addEventListener('click', startMedia);
+            document.addEventListener('keydown', startMedia);
+            document.addEventListener('touchstart', startMedia);
+        });
+    </script>
 </body>
 </html>
